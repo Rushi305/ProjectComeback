@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Project Comeback</title>
+  </head>
+  <body>
+    <h1>Let's Build Something BIG!!</h1>
+
+    <div class="button-container">
+      <button id="yeah">Yeah</button>
+      <button id="nah" type="button">Nah</button>
+    </div>
+
+    <script>
+      const nah = document.getElementById("nah");
+
+      function runAway(event) {
+        const rect = nah.getBoundingClientRect();
+
+        const maxX = window.innerWidth - rect.width;
+        const maxY = window.innerHeight - rect.height;
+
+        let x, y;
+
+        do {
+          x = Math.random() * maxX;
+          y = Math.random() * maxY;
+        } while (
+          Math.hypot(
+            x + rect.width / 2 - event.clientX,
+            y + rect.height / 2 - event.clientY,
+          ) < 150
+        );
+
+        nah.style.position = "fixed";
+        nah.style.left = x + "px";
+        nah.style.top = y + "px";
+      }
+
+      nah.addEventListener("mouseenter", runAway);
+
+      nah.addEventListener("touchstart", (event) => {
+        event.preventDefault();
+        runAway(event.touches[0]);
+      });
+
+      nah.addEventListener("click", (event) => {
+        event.preventDefault();
+        runAway(event);
+      });
+    </script>
+  </body>
+</html>
